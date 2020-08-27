@@ -23,6 +23,33 @@ class Tarot extends React.Component {
     ],
   };
 
+  toggleDisplay = (pileNum) => {
+    var imgTag = document.getElementById("cardImg" + pileNum);
+    var images = [
+      require("./cards/" +
+        this.state.tarot[this.state.piles[pileNum]["cardId"]].img),
+      require("./cards/cardback.jpg"),
+    ];
+    console.log("Select card index: " + pileNum);
+    console.log("Tarot card number: " + this.state.piles[pileNum]["cardId"]);
+    console.log("Tarot img directory: " + images[0]);
+    console.log(
+      "Tarot card: " +
+        this.state.tarot[this.state.piles[pileNum]["cardId"]].name
+    );
+    this.state.piles[pileNum]["display"] = !this.state.piles[pileNum][
+      "display"
+    ];
+
+    this.state.piles[pileNum]["display"] === true
+      ? (imgTag.src = images[0])
+      : (imgTag.src = images[1]);
+
+    // this.setState((prevState) => ({
+    //   piles: [...prevState.piles],
+    // }));
+  };
+
   getCardId = (pileNum) => {
     const clonePile = [...this.state.piles];
     clonePile[pileNum]["display"] = !clonePile[pileNum]["display"];
@@ -72,12 +99,19 @@ class Tarot extends React.Component {
     }));
   };
 
+  displayUi = (cardNum) => {
+    if (this.state.piles[cardNum]["display"] === true) {
+      return this.getCardData(cardNum);
+    }
+  };
+
   getCardData = (cardNumber) => {
     return (
       <React.Fragment>
         <img
           onClick={() => this.getCardId(cardNumber)}
-          src={require("./cards/" + this.state.tarot[cardNumber].img)}
+          src={require("./cards/" +
+            this.state.tarot[this.state.piles[cardNumber]["cardId"]].img)}
         />
         <div>Name: {this.state.tarot[cardNumber].name}</div>
         <div>Image: {this.state.tarot[cardNumber].img}</div>
@@ -126,7 +160,12 @@ class Tarot extends React.Component {
   };
 
   generateNewCards = () => {
-    this.shuffleDeck((this.state.singleNumber = 1));
+    // Shuffle deck a random number of times or based on the name numerlogy of the person
+    if (this.state.singleNumber === "") {
+      this.shuffleDeck(Math.floor(Math.random() * 10));
+    } else {
+      this.shuffleDeck(this.state.singleNumber);
+    }
     let cardArr = [this.state.number_piles];
     var pass_flag = true;
 
@@ -148,32 +187,26 @@ class Tarot extends React.Component {
     console.log("final cardArr " + cardArr);
 
     // add pulls to state piles
-    const clonePile = [...this.state.piles];
-    var curPileLen = Object.keys(clonePile).length;
+    var curPileLen = Object.keys(this.state.piles).length;
     for (var i = 0; i < this.state.number_piles; i++) {
       if (i < curPileLen) {
-        clonePile[i]["cardId"] = cardArr[i + 1];
-        clonePile[i]["display"] = false;
+        this.state.piles[i]["cardId"] = cardArr[i + 1];
+        this.state.piles[i]["display"] = false;
       } else {
+        this.state.piles.push({
+          pile: i,
+          cardId: cardArr[i + 1],
+          display: false,
+        });
         this.setState((prevState) => ({
           generatedPiles: true,
-          piles: [
-            ...prevState.piles,
-            { pile: i, cardId: cardArr[i], display: false },
-          ],
         }));
       }
     }
+
     this.setState((prevState) => ({
       generatedPiles: true,
     }));
-    console.log("piles - " + this.state.piles);
-  };
-
-  displayUi = (cardNum) => {
-    if (this.state.piles[cardNum]["display"] === true) {
-      return this.getCardData(cardNum);
-    }
   };
 
   render() {
@@ -203,6 +236,7 @@ class Tarot extends React.Component {
               generateNewCards: this.generateNewCards,
               getCardId: this.getCardId,
               displayUi: this.displayUi,
+              toggleDisplay: this.toggleDisplay,
             },
           }}
         >

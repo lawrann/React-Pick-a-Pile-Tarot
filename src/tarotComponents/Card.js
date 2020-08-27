@@ -9,10 +9,12 @@ const Card = (prop) => {
           <React.Fragment>
             <img
               src={require("./cards/cardback.jpg")}
-              onClick={() => actions.getCardId(prop.id)}
+              width="200px"
+              height="320px"
+              onClick={() => actions.toggleDisplay(prop.id)}
               id={"cardImg" + prop.id}
             />
-            {actions.displayUi(prop.id)}
+            {/* {actions.displayUi(prop.id)} */}
           </React.Fragment>
         );
       }}
