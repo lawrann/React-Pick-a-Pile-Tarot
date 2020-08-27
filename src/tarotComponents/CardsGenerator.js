@@ -1,41 +1,42 @@
 import React from "react";
 import { ContextConsumer } from "./context";
-import Pile from "./Pile";
+import Card from "./Card";
 
 const CardsGenerator = () => {
   return (
     <ContextConsumer>
-      {({ actions, generatedPiles, state }) => {
-        function hasGeneratedPiles() {
-          console.log("generatedpiles: " + state.generatedPiles);
+      {({ actions, state }) => {
+        function displayCards() {
+          let uis = [];
+          for (var i = 0; i < state.number_piles; i++) {
+            uis.push(<Card id={i} key={i} />);
+          }
+          return uis;
+        }
+        function hasGeneratedCards() {
           if (state.generatedPiles === false) {
             return (
               <React.Fragment>
-                Generate New Pile{" "}
-                <button onClick={() => actions.generateNewPiles()}>
-                  Generate New Piles
+                Generate New Cards{" "}
+                <button onClick={() => actions.generateNewCards()}>
+                  Generate New Cards
                 </button>
-                <div>Click on generate piles first!</div>
+                <div>Click on generate cards first!</div>
               </React.Fragment>
             );
           } else {
             return (
               <React.Fragment>
-                Generate New Pile{" "}
-                <button onClick={() => actions.generateNewPiles()}>
-                  Generate New Piles
+                Generate New Cards{" "}
+                <button onClick={() => actions.generateNewCards()}>
+                  Generate New Cards
                 </button>
-                <div>
-                  <Pile id="0" />
-                  <Pile id="1" />
-                  <Pile id="2" />
-                  <Pile id="3" />
-                </div>
+                <div>{displayCards()}</div>
               </React.Fragment>
             );
           }
         }
-        return hasGeneratedPiles();
+        return hasGeneratedCards();
       }}
     </ContextConsumer>
   );
