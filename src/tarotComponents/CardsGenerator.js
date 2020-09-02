@@ -32,9 +32,6 @@ const CardsGenerator = () => {
           } else {
             return (
               <React.Fragment>
-                <Alert isopen={"0"} variant="success">
-                  Cards successfully generated
-                </Alert>
                 <Button
                   className="btn btn-primary btn-sm m-2"
                   onClick={() => actions.generateNewCards()}

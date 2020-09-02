@@ -20,7 +20,6 @@ const Card = (prop) => {
         return (
           <React.Fragment>
             <img
-              // src={require("./cards/cardback.jpg")}
               src={cardBack()}
               width="200px"
               height="320px"
