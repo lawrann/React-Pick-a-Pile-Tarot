@@ -1,6 +1,9 @@
 import React from "react";
 import { ContextConsumer } from "./context";
 import Card from "./Card";
+import CardInfoPanel from "./CardInfoPanel";
+import { Alert, Button } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const CardsGenerator = () => {
   return (
@@ -19,33 +22,42 @@ const CardsGenerator = () => {
           for (var i = 0; i < num; i++) {
             var imgTag = document.getElementById("cardImg" + i);
             if (imgTag === null) break;
-            imgTag.src = images[0];
+            // imgTag.src = images[0];
           }
         }
         function hasGeneratedCards() {
           if (state.generatedPiles === false) {
             return (
               <React.Fragment>
-                Generate New Cards{" "}
-                <button onClick={() => actions.generateNewCards()}>
-                  Generate New Cards
-                </button>
-                <div>Click on generate cards first!</div>
+                <Button
+                  className="btn btn-primary btn-sm m-2"
+                  onClick={() => actions.generateNewCards()}
+                >
+                  Generate Cards
+                </Button>
+                <Alert variant="primary">Click on generate cards first!</Alert>
               </React.Fragment>
             );
           } else {
             return (
               <React.Fragment>
-                Generate New Cards{" "}
-                <button onClick={() => actions.generateNewCards()}>
-                  Generate New Cards
-                </button>
+                <Alert isopen={"0"} variant="success">
+                  Cards successfully generated
+                </Alert>
+                <Button
+                  className="btn btn-primary btn-sm m-2"
+                  onClick={() => actions.generateNewCards()}
+                >
+                  Regenerate Cards
+                </Button>
                 <div>{displayCards()}</div>
-                {setCardBack()}
+                {/* {setCardBack()} */}
+                <CardInfoPanel />
               </React.Fragment>
             );
           }
         }
+
         return hasGeneratedCards();
       }}
     </ContextConsumer>

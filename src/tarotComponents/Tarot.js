@@ -2,6 +2,9 @@ import React from "react";
 import { ContextProvider } from "./context";
 import TarotData from "./tarot-images.json";
 import * as algo from "./algorithms";
+import "./tarotStyles.css";
+import { Row, Col, Container, Form } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 class Tarot extends React.Component {
   state = {
@@ -21,18 +24,42 @@ class Tarot extends React.Component {
       { pile: 3, cardId: -1, display: false },
       { pile: 4, cardId: -1, display: false },
     ],
+    cardsSelected: [],
+  };
+
+  getCardInfoDisplay = () => {
+    let uis = [];
+    var num = this.state.number_piles;
+    let card_true = [];
+    for (var i = 0; i < num; i++) {
+      if (this.state.piles[i]["display"] === true) {
+        card_true.push(this.state.piles[i]["cardId"]);
+      }
+    }
+    for (var i = 0; i < card_true.length; i++) {
+      if (this.state.cardsSelected.includes(card_true[i])) {
+        continue;
+      } else {
+        this.state.cardsSelected.push(card_true[i]);
+      }
+    }
+    for (var i = 0; i < this.state.cardsSelected.length; i++) {
+      if (card_true.includes(this.state.cardsSelected[i])) {
+        continue;
+      } else {
+        this.state.cardsSelected.splice(i, 1);
+      }
+    }
+    for (const cardid of this.state.cardsSelected) {
+      uis.push(this.getCardData(cardid));
+    }
+    console.log("cardsSelected " + this.state.cardsSelected);
+    return uis;
   };
 
   toggleDisplay = (pileNum) => {
-    var imgTag = document.getElementById("cardImg" + pileNum);
-    var images = [
-      require("./cards/" +
-        this.state.tarot[this.state.piles[pileNum]["cardId"]].img),
-      require("./cards/cardback.jpg"),
-    ];
     console.log("Select card index: " + pileNum);
     console.log("Tarot card number: " + this.state.piles[pileNum]["cardId"]);
-    console.log("Tarot img directory: " + images[0]);
     console.log(
       "Tarot card: " +
         this.state.tarot[this.state.piles[pileNum]["cardId"]].name
@@ -41,13 +68,9 @@ class Tarot extends React.Component {
       "display"
     ];
 
-    this.state.piles[pileNum]["display"] === true
-      ? (imgTag.src = images[0])
-      : (imgTag.src = images[1]);
-
-    // this.setState((prevState) => ({
-    //   piles: [...prevState.piles],
-    // }));
+    this.setState((state) => ({
+      piles: this.state.piles,
+    }));
   };
 
   getCardId = (pileNum) => {
@@ -62,18 +85,18 @@ class Tarot extends React.Component {
 
   displayNumber = () => {
     return (
-      <h3>
+      <Col>
         Numerlogy: {this.state.nameNumerlogy} / {this.state.singleNumber}
-      </h3>
+      </Col>
     );
   };
 
   displayHoroscope = () => {
-    return <h3>{this.state.horoscope}</h3>;
+    return <Col>{this.state.horoscope}</Col>;
   };
 
   displayZodiac = () => {
-    return <h3>{this.state.zodiac}</h3>;
+    return <Col>{this.state.zodiac}</Col>;
   };
 
   getName = () => {
@@ -107,14 +130,50 @@ class Tarot extends React.Component {
 
   getCardData = (cardNumber) => {
     return (
-      <React.Fragment>
-        <img
-          onClick={() => this.getCardId(cardNumber)}
-          src={require("./cards/" +
-            this.state.tarot[this.state.piles[cardNumber]["cardId"]].img)}
-        />
-        <div>Name: {this.state.tarot[cardNumber].name}</div>
-        <div>Image: {this.state.tarot[cardNumber].img}</div>
+      <React.Fragment key={cardNumber}>
+        <tbody>
+          <tr>
+            <td>
+              <h2>{this.state.tarot[cardNumber].name}</h2>
+              <h2>Arcana: {this.state.tarot[cardNumber].arcana}</h2>
+              <img
+                onClick={() => this.getCardId(cardNumber)}
+                src={require("./cards/" + this.state.tarot[cardNumber].img)}
+              />
+            </td>
+            <td>
+              <p>
+                Fortune Telling:{" "}
+                {this.state.tarot[cardNumber].fortune_telling.toString()}
+                <br />
+                Questions to Ask:{" "}
+                {this.state.tarot[cardNumber]["Questions to Ask"].toString()}
+                <br />
+                Meaning - Light:{" "}
+                {this.state.tarot[cardNumber].meanings.light.toString()}
+                <br />
+                Meaning - Shadow:{" "}
+                {this.state.tarot[cardNumber].meanings.shadow.toString()}
+                <br />
+                Affirmation: {this.state.tarot[cardNumber].Affirmation}
+                <br />
+                Keywords: {this.state.tarot[cardNumber].keywords.toString()}
+                <br />
+                Suit: {this.state.tarot[cardNumber].suit}
+                <br />
+                Number: {this.state.tarot[cardNumber].number}
+                <br />
+                Mythical/Spiritual:{" "}
+                {this.state.tarot[cardNumber]["Mythical/Spiritual"]}
+                <br />
+                Archetype: {this.state.tarot[cardNumber].Archetype}
+                <br />
+                Elemental: {this.state.tarot[cardNumber].Elemental}
+              </p>
+            </td>
+          </tr>
+        </tbody>
+        {/*<div>Image: {this.state.tarot[cardNumber].img}</div>
         <div>Keywords: {this.state.tarot[cardNumber].keywords}</div>
         <div>Affirmation: {this.state.tarot[cardNumber].Affirmation}</div>
         <div>Archetype: {this.state.tarot[cardNumber].Archetype}</div>
@@ -142,7 +201,7 @@ class Tarot extends React.Component {
           Meaning - Shadow: {this.state.tarot[cardNumber].meanings.shadow}
         </div>
         <div>Number: {this.state.tarot[cardNumber].number}</div>
-        <div>Suit: {this.state.tarot[cardNumber].suit}</div>
+        <div>Suit: {this.state.tarot[cardNumber].suit}</div> */}
       </React.Fragment>
     );
   };
@@ -198,13 +257,10 @@ class Tarot extends React.Component {
           cardId: cardArr[i + 1],
           display: false,
         });
-        this.setState((prevState) => ({
-          generatedPiles: true,
-        }));
       }
     }
 
-    this.setState((prevState) => ({
+    this.setState(() => ({
       generatedPiles: true,
     }));
   };
@@ -212,8 +268,7 @@ class Tarot extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <h1>Pick a Pile Tarot Reading</h1>
-        {/* {this.getCardData(77)}; */}
+        <h1 className="primary">Pick a Pile Tarot Reading</h1>
         <ContextProvider
           value={{
             state: this.state,
@@ -225,8 +280,8 @@ class Tarot extends React.Component {
             zodiac: this.zodiac,
             piles: this.piles,
             generatedPiles: this.generatedPiles,
+            number_piles: this.number_piles,
             actions: {
-              updateInformation: this.updateInformation,
               getCardData: this.getCardData,
               getName: this.getName,
               getBirthday: this.getBirthday,
@@ -237,6 +292,8 @@ class Tarot extends React.Component {
               getCardId: this.getCardId,
               displayUi: this.displayUi,
               toggleDisplay: this.toggleDisplay,
+              getCardInfoDisplay: this.getCardInfoDisplay,
+              setDisplay: this.setDisplay,
             },
           }}
         >

@@ -9,7 +9,6 @@ const TarotBoiler = () => {
       <Tarot>
         <PersonalInformation />
         <CardsGenerator />
-        {/* <Tarot.CardInfoPanel /> */}
       </Tarot>
     </div>
   );
