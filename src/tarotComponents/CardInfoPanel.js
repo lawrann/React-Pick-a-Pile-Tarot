@@ -8,7 +8,9 @@ const CardInfoPanel = () => {
         return (
           <React.Fragment>
             <h1>Cards selected:</h1>
-            <table>{actions.getCardInfoDisplay()}</table>
+            <table class="card-info-table">
+              {actions.getCardInfoDisplay()}
+            </table>
           </React.Fragment>
         );
       }}

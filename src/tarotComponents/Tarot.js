@@ -155,11 +155,15 @@ class Tarot extends React.Component {
         <tbody>
           <tr>
             <td>
-              <h2>{this.state.tarot[cardNumber].name}</h2>
-              <h2>Arcana: {this.state.tarot[cardNumber].arcana}</h2>
+              <h3>
+                {this.state.tarot[cardNumber].name} (
+                {this.state.tarot[cardNumber].arcana})
+              </h3>
               <img
                 onClick={() => this.getCardId(cardNumber)}
                 src={require("./cards/" + this.state.tarot[cardNumber].img)}
+                width="300px"
+                height="480px"
               />
             </td>
             <td>
@@ -214,35 +218,6 @@ class Tarot extends React.Component {
             </td>
           </tr>
         </tbody>
-        {/*<div>Image: {this.state.tarot[cardNumber].img}</div>
-        <div>Keywords: {this.state.tarot[cardNumber].keywords}</div>
-        <div>Affirmation: {this.state.tarot[cardNumber].Affirmation}</div>
-        <div>Archetype: {this.state.tarot[cardNumber].Archetype}</div>
-        <div>Elemental: {this.state.tarot[cardNumber].Elemental}</div>
-        <div>
-          Hebrew Alphabet: {this.state.tarot[cardNumber]["Hebrew Alphabet"]}
-        </div>
-        <div>
-          Mythical/Spiritual:{" "}
-          {this.state.tarot[cardNumber]["Mythical/Spiritual"]}
-        </div>
-        <div>Numerology: {this.state.tarot[cardNumber].Numerology}</div>
-        <div>
-          Questions to Ask: {this.state.tarot[cardNumber]["Questions to Ask"]}
-        </div>
-        <div>Arcana: {this.state.tarot[cardNumber].arcana}</div>
-        <div>
-          Fortune Telling: {this.state.tarot[cardNumber].fortune_telling}
-        </div>
-        <div>Keywords: {this.state.tarot[cardNumber].keywords}</div>
-        <div>
-          Meaning - Light: {this.state.tarot[cardNumber].meanings.light}
-        </div>
-        <div>
-          Meaning - Shadow: {this.state.tarot[cardNumber].meanings.shadow}
-        </div>
-        <div>Number: {this.state.tarot[cardNumber].number}</div>
-        <div>Suit: {this.state.tarot[cardNumber].suit}</div> */}
       </React.Fragment>
     );
   };

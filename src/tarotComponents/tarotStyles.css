@@ -1,3 +1,22 @@
 .primary {
   color: orange;
 }
+
+.card-info-table {
+  border-collapse: collapse;
+  margin: 25px;
+  font-size: 0.9em;
+  max-width: 100%;
+  /* width-100%; */
+}
+
+.card-info-table tbody {
+  border-width: 2px;
+  border-color: black;
+  border-style: solid;
+  margin-left: 25px;
+}
+
+.card-info-table td {
+  width: 20%;
+}
