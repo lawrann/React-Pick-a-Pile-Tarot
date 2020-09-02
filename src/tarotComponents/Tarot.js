@@ -128,6 +128,27 @@ class Tarot extends React.Component {
     }
   };
 
+  getAnswers(question, text) {
+    let uis = [];
+    if (question === "" || question === undefined) {
+      return;
+    } else if (typeof question === "object") {
+      uis.push(<b>{text}</b>);
+      uis.push(<br></br>);
+      for (const q of question) {
+        uis.push(q);
+        uis.push(<br></br>);
+      }
+    } else {
+      uis.push(<b>{text}</b>);
+      uis.push(<br></br>);
+      uis.push(question);
+      uis.push(<br></br>);
+    }
+    uis.push(<br></br>);
+    return uis;
+  }
+
   getCardData = (cardNumber) => {
     return (
       <React.Fragment key={cardNumber}>
@@ -143,32 +164,52 @@ class Tarot extends React.Component {
             </td>
             <td>
               <p>
-                Fortune Telling:{" "}
-                {this.state.tarot[cardNumber].fortune_telling.toString()}
-                <br />
-                Questions to Ask:{" "}
-                {this.state.tarot[cardNumber]["Questions to Ask"].toString()}
-                <br />
-                Meaning - Light:{" "}
-                {this.state.tarot[cardNumber].meanings.light.toString()}
-                <br />
-                Meaning - Shadow:{" "}
-                {this.state.tarot[cardNumber].meanings.shadow.toString()}
-                <br />
-                Affirmation: {this.state.tarot[cardNumber].Affirmation}
-                <br />
-                Keywords: {this.state.tarot[cardNumber].keywords.toString()}
-                <br />
-                Suit: {this.state.tarot[cardNumber].suit}
-                <br />
-                Number: {this.state.tarot[cardNumber].number}
-                <br />
-                Mythical/Spiritual:{" "}
-                {this.state.tarot[cardNumber]["Mythical/Spiritual"]}
-                <br />
-                Archetype: {this.state.tarot[cardNumber].Archetype}
-                <br />
-                Elemental: {this.state.tarot[cardNumber].Elemental}
+                {this.getAnswers(
+                  this.state.tarot[cardNumber].fortune_telling,
+                  "Fortune Telling:"
+                )}
+                {this.getAnswers(
+                  this.state.tarot[cardNumber]["Questions to Ask"],
+                  "Questions to Ask:"
+                )}
+                {this.getAnswers(
+                  this.state.tarot[cardNumber].keywords,
+                  "Keywords:"
+                )}
+              </p>
+            </td>
+            <td>
+              <p>
+                {this.getAnswers(
+                  this.state.tarot[cardNumber].meanings.light,
+                  "Light Meaning:"
+                )}
+                {this.getAnswers(
+                  this.state.tarot[cardNumber].meanings.shadow,
+                  "Shadow Meaning:"
+                )}
+              </p>
+            </td>
+            <td>
+              <p>
+                {this.getAnswers(this.state.tarot[cardNumber].number, "Number")}
+                {this.getAnswers(this.state.tarot[cardNumber].suit, "Suit")}
+                {this.getAnswers(
+                  this.state.tarot[cardNumber]["Mythical/Spiritual"],
+                  "Mythical/Spiritual:"
+                )}
+                {this.getAnswers(
+                  this.state.tarot[cardNumber].Archetype,
+                  "Archetype:"
+                )}
+                {this.getAnswers(
+                  this.state.tarot[cardNumber].Elemental,
+                  "Elemental:"
+                )}
+                {this.getAnswers(
+                  this.state.tarot[cardNumber].Affirmation,
+                  "Affirmation"
+                )}
               </p>
             </td>
           </tr>
