@@ -278,6 +278,7 @@ class Tarot extends React.Component {
 
     this.setState(() => ({
       generatedPiles: true,
+      cardsSelected: [],
     }));
   };
 
