@@ -9,7 +9,7 @@ const Card = (prop) => {
           var images = [
             require("./cards/" +
               state.tarot[state.piles[prop.id]["cardId"]].img),
-            require("./cards/cardback.jpg"),
+            require("./cards/cardback.png"),
           ];
           if (state.piles[prop.id]["display"]) {
             return images[0];

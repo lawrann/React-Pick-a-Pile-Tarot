@@ -12,7 +12,7 @@ const CardsGenerator = () => {
         function displayCards() {
           let uis = [];
           for (var i = 0; i < state.number_piles; i++) {
-            uis.push(<Card id={i} key={i} />);
+            uis.push(<Card className="card" id={i} key={i} />);
           }
           return uis;
         }
@@ -38,7 +38,7 @@ const CardsGenerator = () => {
                 >
                   Regenerate Cards
                 </Button>
-                <div>{displayCards()}</div>
+                <div className="card-list">{displayCards()}</div>
                 <CardInfoPanel />
               </React.Fragment>
             );

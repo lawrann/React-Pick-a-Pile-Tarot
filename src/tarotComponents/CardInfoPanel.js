@@ -8,6 +8,12 @@ const CardInfoPanel = () => {
         return (
           <React.Fragment>
             <h1>Cards selected:</h1>
+            {actions.getCardSelectedDisplay()}
+            {/* <table className="card-selected-display">
+              <tbody>
+                <tr>{actions.getCardSelectedDisplay()}</tr>
+              </tbody>
+            </table> */}
             <table className="card-info-table">
               {actions.getCardInfoDisplay()}
             </table>

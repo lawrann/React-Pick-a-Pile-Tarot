@@ -17,7 +17,7 @@ class Tarot extends React.Component {
     nameNumerology: "",
     singleNumber: "",
     generatedPiles: false,
-    number_piles: 20,
+    number_piles: 35,
     piles: [
       { pile: 1, cardId: -1, display: false },
       { pile: 2, cardId: -1, display: false },
@@ -25,6 +25,42 @@ class Tarot extends React.Component {
       { pile: 4, cardId: -1, display: false },
     ],
     cardsSelected: [],
+  };
+
+  getCardSelectedDisplay = () => {
+    let uis = [];
+    var num = this.state.number_piles;
+    let card_true = [];
+    for (var i = 0; i < num; i++) {
+      if (this.state.piles[i]["display"] === true) {
+        card_true.push(this.state.piles[i]["cardId"]);
+      }
+    }
+    for (var i = 0; i < card_true.length; i++) {
+      if (this.state.cardsSelected.includes(card_true[i])) {
+        continue;
+      } else {
+        this.state.cardsSelected.push(card_true[i]);
+      }
+    }
+    for (var i = 0; i < this.state.cardsSelected.length; i++) {
+      if (card_true.includes(this.state.cardsSelected[i])) {
+        continue;
+      } else {
+        this.state.cardsSelected.splice(i, 1);
+      }
+    }
+    for (const cardid of this.state.cardsSelected) {
+      uis.push(
+        <img
+          className="cards-selected"
+          src={require("./cards/" + this.state.tarot[cardid].img)}
+          width="150px"
+          height="240px"
+        />
+      );
+    }
+    return uis;
   };
 
   getCardInfoDisplay = () => {
@@ -54,6 +90,7 @@ class Tarot extends React.Component {
       uis.push(this.getCardData(cardid));
     }
     console.log("cardsSelected " + this.state.cardsSelected);
+
     return uis;
   };
 
@@ -310,7 +347,7 @@ class Tarot extends React.Component {
               displayUi: this.displayUi,
               toggleDisplay: this.toggleDisplay,
               getCardInfoDisplay: this.getCardInfoDisplay,
-              setDisplay: this.setDisplay,
+              getCardSelectedDisplay: this.getCardSelectedDisplay,
             },
           }}
         >
