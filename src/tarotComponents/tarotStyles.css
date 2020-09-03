@@ -28,8 +28,9 @@
 
 .card-list {
   position: relative;
-  padding-top: 160px;
-  padding-bottom: 160px;
+  padding-top: 80px;
+  padding-bottom: 80px;
+  padding-left: 180px;
 }
 
 .card {
@@ -38,7 +39,7 @@
 
 .card-list > * {
   position: relative;
-  left: 0px;
+  /* left: 60px; */
   top: 0px;
   margin-left: -10rem;
   padding: 0;
@@ -54,16 +55,43 @@
   padding-top: 0;
   border-color: gold;
   border-radius: 1rem;
-  top: -120px;
+  top: -100px;
+  left: -70px;
 }
 
 @keyframes hoverFrame {
   from {
     border-color: transparent;
     top: 0;
+    left: 0;
   }
   to {
-    top: -120px;
+    top: -100px;
     border-color: gold;
+    left: -70px;
+  }
+}
+
+.card-list > :last-child:hover {
+  cursor: pointer;
+  animation-name: hoverFrame2;
+  animation-duration: 800ms;
+  padding-top: 0;
+  border-color: gold;
+  border-radius: 1rem;
+  top: -100px;
+  left: 0;
+}
+
+@keyframes hoverFrame2 {
+  from {
+    border-color: transparent;
+    top: 0;
+    left: 0;
+  }
+  to {
+    top: -100px;
+    border-color: gold;
+    left: 0;
   }
 }
