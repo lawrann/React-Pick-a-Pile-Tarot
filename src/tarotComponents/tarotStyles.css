@@ -51,7 +51,7 @@
 .card-list > *:hover {
   cursor: pointer;
   animation-name: hoverFrame;
-  animation-duration: 800ms;
+  animation-duration: 2000ms;
   padding-top: 0;
   border-color: gold;
   border-radius: 1rem;

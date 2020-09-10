@@ -1,0 +1,297 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot testing Card render 1`] = `
+<h1
+  className="primary"
+>
+  Pick a Pile Tarot Reading
+</h1>
+`;
+
+exports[`snapshot testing Tarot render 1`] = `
+<h1
+  className="primary"
+>
+  Pick a Pile Tarot Reading
+</h1>
+`;
+
+exports[`snapshot testing TarotBoiler render 1`] = `
+<div
+  className="tarotBoiler"
+>
+  <h1
+    className="primary"
+  >
+    Pick a Pile Tarot Reading
+  </h1>
+  <div
+    className="container"
+  >
+    <form
+      className=""
+    >
+      <div
+        className="row"
+      >
+        <div
+          className="col"
+        >
+          <div
+            className="form-group"
+          >
+            <label
+              className="form-label"
+            >
+              Full Name:
+            </label>
+            <input
+              className="form-control"
+              id="nameBox"
+              onChange={[Function]}
+              placeholder="Enter your Name"
+              type="text"
+            />
+            <small
+              className="text-muted form-text"
+            >
+              You name is used to calculate your Name's Numerlogy
+            </small>
+          </div>
+        </div>
+        <div
+          className="col"
+        >
+          <div
+            className="form-group"
+          >
+            <label
+              className="form-label"
+            >
+              Date of Birth:
+            </label>
+            <input
+              className="form-control"
+              id="birthdayBox"
+              onChange={[Function]}
+              placeholder="Enter your Date of Birth"
+              type="date"
+            />
+            <small
+              className="text-muted form-text"
+            >
+              You DOB is used to calculate your Horoscope and Zodiac signs
+            </small>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col"
+        >
+          Name Numerology: 
+        </div>
+        <div
+          className="col"
+        >
+          Numerlogy: 
+           / 
+          
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col"
+        >
+          Horoscope: 
+        </div>
+        <div
+          className="col"
+        >
+          
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col"
+        >
+          Chinese Zodiac: 
+        </div>
+        <div
+          className="col"
+        >
+          
+        </div>
+      </div>
+    </form>
+  </div>
+  <button
+    className="btn btn-primary btn-sm m-2 btn btn-primary"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    Generate Cards
+  </button>
+  <div
+    className="fade alert alert-primary show"
+    role="alert"
+  >
+    Click on generate cards first!
+  </div>
+</div>
+`;
+
+exports[`snapshot testing TarotBoiler test 1`] = `
+<div
+  className="tarotBoiler"
+>
+  <h1
+    className="primary"
+  >
+    Pick a Pile Tarot Reading
+  </h1>
+  <div
+    className="container"
+  >
+    <form
+      className=""
+    >
+      <div
+        className="row"
+      >
+        <div
+          className="col"
+        >
+          <div
+            className="form-group"
+          >
+            <label
+              className="form-label"
+            >
+              Full Name:
+            </label>
+            <input
+              className="form-control"
+              id="nameBox"
+              onChange={[Function]}
+              placeholder="Enter your Name"
+              type="text"
+            />
+            <small
+              className="text-muted form-text"
+            >
+              You name is used to calculate your Name's Numerlogy
+            </small>
+          </div>
+        </div>
+        <div
+          className="col"
+        >
+          <div
+            className="form-group"
+          >
+            <label
+              className="form-label"
+            >
+              Date of Birth:
+            </label>
+            <input
+              className="form-control"
+              id="birthdayBox"
+              onChange={[Function]}
+              placeholder="Enter your Date of Birth"
+              type="date"
+            />
+            <small
+              className="text-muted form-text"
+            >
+              You DOB is used to calculate your Horoscope and Zodiac signs
+            </small>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col"
+        >
+          Name Numerology: 
+        </div>
+        <div
+          className="col"
+        >
+          Numerlogy: 
+           / 
+          
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col"
+        >
+          Horoscope: 
+        </div>
+        <div
+          className="col"
+        >
+          
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col"
+        >
+          Chinese Zodiac: 
+        </div>
+        <div
+          className="col"
+        >
+          
+        </div>
+      </div>
+    </form>
+  </div>
+  <button
+    className="btn btn-primary btn-sm m-2 btn btn-primary"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    Generate Cards
+  </button>
+  <div
+    className="fade alert alert-primary show"
+    role="alert"
+  >
+    Click on generate cards first!
+  </div>
+</div>
+`;
+
+exports[`tarot functions getCardData 1`] = `
+<h1
+  className="primary"
+>
+  Pick a Pile Tarot Reading
+</h1>
+`;
+
+exports[`test context provider sets generatedpiles status to false 1`] = `
+<h1
+  className="primary"
+>
+  Pick a Pile Tarot Reading
+</h1>
+`;
