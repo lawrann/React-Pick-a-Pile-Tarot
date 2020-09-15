@@ -25,6 +25,7 @@ const Card = (prop) => {
               height="320px"
               onClick={() => actions.toggleDisplay(prop.id)}
               id={"cardImg" + prop.id}
+              data-testid={"card-test-id-" + prop.id}
             />
           </React.Fragment>
         );
