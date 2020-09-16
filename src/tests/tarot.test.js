@@ -152,18 +152,73 @@ describe("Tarot Component : ", () => {
     expect(screen.getByTestId("zodiac").textContent).toBe("Pig");
   });
 
-  test("getName", () => {
-    const zodiac = "Pig";
+  test("getAnswers", () => {
+    var question = "Name";
+    var answer = "Lawrann";
     const s = render(
       <Tarot>
         <ContextConsumer>
-          {({ actions, state }) => {
-            state.zodiac = zodiac;
-            return actions.displayZodiac();
+          {({ actions }) => {
+            return (
+              <span data-testid={"getAnswerTest"}>
+                {actions.getAnswers(answer, question, "key")}
+              </span>
+            );
           }}
         </ContextConsumer>
       </Tarot>
     );
-    expect(screen.getByTestId("zodiac").textContent).toBe("Pig");
+    console.log(screen.getByTestId("getAnswerTest").textContent);
+    expect(screen.getByTestId("getAnswerTest").textContent).toBe(
+      question + answer
+    );
   });
+
+  //   test("getCardId", () => {
+  //     const s = render(
+  //       <Tarot>
+  //         <ContextConsumer>
+  //           {({ actions }) => {
+  //             return (
+  //               <span data-testid={"getCardId"}>{actions.getCardId(0)}</span>
+  //             );
+  //           }}
+  //         </ContextConsumer>
+  //       </Tarot>
+  //     );
+  //     console.log(screen.getByTestId("getCardId").textContent);
+  //   });
+
+  test("getCardData", () => {
+    var cardNum = 0;
+    const s = render(
+      <Tarot>
+        <ContextConsumer>
+          {({ actions, state }) => {
+            return (
+              <span data-testid={"getCardData"}>
+                {actions.getCardData(cardNum)}
+              </span>
+            );
+          }}
+        </ContextConsumer>
+      </Tarot>
+    );
+    expect(
+      screen.getByTestId("card-data-tbody-id-" + cardNum).toBeInTheDocument
+    );
+  });
+
+  //   test("generateNewCards", () => {
+  //     const s = render(
+  //       <Tarot>
+  //         <ContextConsumer>
+  //           {({ actions, state }) => {
+  //             state.zodiac = zodiac;
+  //             return actions.displayZodiac();
+  //           }}
+  //         </ContextConsumer>
+  //       </Tarot>
+  //     );
+  //   });
 });

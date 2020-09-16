@@ -153,38 +153,38 @@ class Tarot extends React.Component {
     }));
   };
 
-  getAnswers(question, text, key) {
+  getAnswers = (answer, question, key) => {
     let uis = [];
-    if (question === "" || question === undefined) {
+    if (answer === "" || answer === undefined) {
       return;
-    } else if (typeof question === "object") {
-      uis.push(<b key={"1-" + key + "-" + text}>{text}</b>);
-      uis.push(<br key={"2-" + key + "-" + text} />);
+    } else if (typeof answer === "object") {
+      uis.push(<b key={"1-" + key + "-" + question}>{question}</b>);
+      uis.push(<br key={"2-" + key + "-" + question} />);
       var count = 0;
-      for (const q of question) {
+      for (const q of answer) {
         count++;
         uis.push(q);
-        uis.push(<br key={"3-" + key + "-" + text + "-" + count} />);
+        uis.push(<br key={"3-" + key + "-" + question + "-" + count} />);
       }
     } else {
-      uis.push(<b key={"4-" + key + "-" + text}>{text}</b>);
-      uis.push(<br key={"5-" + key + "-" + text} />);
-      uis.push(question);
-      uis.push(<br key={"6-" + key + "-" + text} />);
+      uis.push(<b key={"4-" + key + "-" + question}>{question}</b>);
+      uis.push(<br key={"5-" + key + "-" + question} />);
+      uis.push(answer);
+      uis.push(<br key={"6-" + key + "-" + question} />);
     }
-    uis.push(<br key={"7-" + key + "-" + text} />);
+    uis.push(<br key={"7-" + key + "-" + question} />);
     return uis;
-  }
-
-  getCardId = (pileNum) => {
-    const clonePile = [...this.state.piles];
-    clonePile[pileNum]["display"] = !clonePile[pileNum]["display"];
-    this.setState((prevState) => ({
-      generatedPiles: true,
-      piles: [...prevState.piles],
-    }));
-    return this.state.piles[pileNum]["cardId"];
   };
+
+  // getCardId = (pileNum) => {
+  //   const clonePile = [...this.state.piles];
+  //   clonePile[pileNum]["display"] = !clonePile[pileNum]["display"];
+  //   this.setState((prevState) => ({
+  //     generatedPiles: true,
+  //     piles: [...prevState.piles],
+  //   }));
+  //   return this.state.piles[pileNum]["cardId"];
+  // };
 
   getCardData = (cardNumber) => {
     return (
@@ -198,7 +198,7 @@ class Tarot extends React.Component {
               </h3>
               <img
                 data-testid={"card-data-img-id-" + cardNumber}
-                onClick={() => this.getCardId(cardNumber)}
+                // onClick={() => this.getCardId(cardNumber)}
                 src={require("./cards/" + this.state.tarot[cardNumber].img)}
                 width="300px"
                 height="480px"
@@ -276,19 +276,6 @@ class Tarot extends React.Component {
       </React.Fragment>
     );
   };
-
-  // shuffleDeck = (numTimes) => {
-  //   let deck = this.state.tarot;
-  //   var count = 0;
-  //   while (count !== numTimes) {
-  //     deck = algo.shuffle(deck);
-  //     count++;
-  //   }
-  //   this.setState((prevState) => ({
-  //     tarot: deck,
-  //   }));
-  //   return deck;
-  // };
 
   generateNewCards = () => {
     // Shuffle deck a random number of times or based on the name numerlogy of the person
@@ -378,9 +365,9 @@ class Tarot extends React.Component {
               generateNewCards: this.generateNewCards,
               getCardId: this.getCardId,
               toggleDisplay: this.toggleDisplay,
+              getAnswers: this.getAnswers,
               getCardInfoDisplay: this.getCardInfoDisplay,
               getCardSelectedDisplay: this.getCardSelectedDisplay,
-              shuffleDeck: this.shuffleDeck,
             },
           }}
         >
