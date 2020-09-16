@@ -28,6 +28,7 @@ describe("Card Component : ", () => {
   ];
   const toggleDisplay = jest.fn();
 
+  // create card component
   test("should generate card", () => {
     const s = render(
       <ContextProvider
@@ -47,6 +48,7 @@ describe("Card Component : ", () => {
     );
   });
 
+  // clicking card should call toggleDisplay
   test("should call toggleDisplay", () => {
     const s = render(
       <ContextProvider
@@ -65,6 +67,7 @@ describe("Card Component : ", () => {
     expect(toggleDisplay).toHaveBeenCalled();
   });
 
+  // test the cardBack function, based on state.display - the correct src img should be reflected
   test("should display appropriate img based on display state - cardBack()", () => {
     const cardBack = () => {
       if (state.piles[id]["display"]) {
@@ -80,6 +83,7 @@ describe("Card Component : ", () => {
     state.piles = [{ pile: 1, cardId: 1, display: false }];
   });
 
+  // when a pile's display state is changed, the correct src img is reflected
   test("should alternate img display when state's display is changed", () => {
     const s = render(
       <ContextProvider

@@ -20,6 +20,7 @@ const PersonalInformation = () => {
                         id="nameBox"
                         type="text"
                         placeholder="Enter your Name"
+                        data-testid="test-full-name-input"
                       />
                       <Form.Text className="text-muted">
                         You name is used to calculate your Name's Numerlogy
@@ -34,6 +35,7 @@ const PersonalInformation = () => {
                         id="birthdayBox"
                         onChange={actions.getBirthday}
                         placeholder="Enter your Date of Birth"
+                        data-testid="test-birthday-input"
                       />
                       <Form.Text className="text-muted">
                         You DOB is used to calculate your Horoscope and Zodiac

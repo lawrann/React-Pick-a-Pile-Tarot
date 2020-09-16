@@ -50,15 +50,18 @@ class Tarot extends React.Component {
         this.state.cardsSelected.splice(i, 1);
       }
     }
+    var count = 0;
     for (const cardid of this.state.cardsSelected) {
       uis.push(
         <img
+          data-testid={"card-selected-id-" + count}
           className="cards-selected"
           src={require("./cards/" + this.state.tarot[cardid].img)}
           width="150px"
           height="240px"
         />
       );
+      count++;
     }
     return uis;
   };
@@ -110,30 +113,20 @@ class Tarot extends React.Component {
     }));
   };
 
-  getCardId = (pileNum) => {
-    const clonePile = [...this.state.piles];
-    clonePile[pileNum]["display"] = !clonePile[pileNum]["display"];
-    this.setState((prevState) => ({
-      generatedPiles: true,
-      piles: [...prevState.piles],
-    }));
-    return this.state.piles[pileNum]["cardId"];
-  };
-
   displayNumber = () => {
     return (
-      <Col>
-        Numerlogy: {this.state.nameNumerlogy} / {this.state.singleNumber}
+      <Col data-testid="namenumerlogy">
+        {this.state.nameNumerlogy} / {this.state.singleNumber}
       </Col>
     );
   };
 
   displayHoroscope = () => {
-    return <Col>{this.state.horoscope}</Col>;
+    return <Col data-testid="horoscope">{this.state.horoscope}</Col>;
   };
 
   displayZodiac = () => {
-    return <Col>{this.state.zodiac}</Col>;
+    return <Col data-testid="zodiac">{this.state.zodiac}</Col>;
   };
 
   getName = () => {
@@ -186,10 +179,20 @@ class Tarot extends React.Component {
     return uis;
   }
 
+  getCardId = (pileNum) => {
+    const clonePile = [...this.state.piles];
+    clonePile[pileNum]["display"] = !clonePile[pileNum]["display"];
+    this.setState((prevState) => ({
+      generatedPiles: true,
+      piles: [...prevState.piles],
+    }));
+    return this.state.piles[pileNum]["cardId"];
+  };
+
   getCardData = (cardNumber) => {
     return (
       <React.Fragment key={cardNumber}>
-        <tbody>
+        <tbody data-testid={"card-data-tbody-id-" + cardNumber}>
           <tr>
             <td>
               <h3>
@@ -197,6 +200,7 @@ class Tarot extends React.Component {
                 {this.state.tarot[cardNumber].arcana})
               </h3>
               <img
+                data-testid={"card-data-img-id-" + cardNumber}
                 onClick={() => this.getCardId(cardNumber)}
                 src={require("./cards/" + this.state.tarot[cardNumber].img)}
                 width="300px"
@@ -348,6 +352,7 @@ class Tarot extends React.Component {
               toggleDisplay: this.toggleDisplay,
               getCardInfoDisplay: this.getCardInfoDisplay,
               getCardSelectedDisplay: this.getCardSelectedDisplay,
+              shuffleDeck: this.shuffleDeck,
             },
           }}
         >
