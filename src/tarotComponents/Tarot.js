@@ -59,6 +59,7 @@ class Tarot extends React.Component {
           src={require("./cards/" + this.state.tarot[cardid].img)}
           width="150px"
           height="240px"
+          key={"cardid-" + count}
         />
       );
       count++;
@@ -152,30 +153,26 @@ class Tarot extends React.Component {
     }));
   };
 
-  displayUi = (cardNum) => {
-    if (this.state.piles[cardNum]["display"] === true) {
-      return this.getCardData(cardNum);
-    }
-  };
-
-  getAnswers(question, text) {
+  getAnswers(question, text, key) {
     let uis = [];
     if (question === "" || question === undefined) {
       return;
     } else if (typeof question === "object") {
-      uis.push(<b>{text}</b>);
-      uis.push(<br></br>);
+      uis.push(<b key={"1-" + key + "-" + text}>{text}</b>);
+      uis.push(<br key={"2-" + key + "-" + text} />);
+      var count = 0;
       for (const q of question) {
+        count++;
         uis.push(q);
-        uis.push(<br></br>);
+        uis.push(<br key={"3-" + key + "-" + text + "-" + count} />);
       }
     } else {
-      uis.push(<b>{text}</b>);
-      uis.push(<br></br>);
+      uis.push(<b key={"4-" + key + "-" + text}>{text}</b>);
+      uis.push(<br key={"5-" + key + "-" + text} />);
       uis.push(question);
-      uis.push(<br></br>);
+      uis.push(<br key={"6-" + key + "-" + text} />);
     }
-    uis.push(<br></br>);
+    uis.push(<br key={"7-" + key + "-" + text} />);
     return uis;
   }
 
@@ -211,15 +208,18 @@ class Tarot extends React.Component {
               <p>
                 {this.getAnswers(
                   this.state.tarot[cardNumber].fortune_telling,
-                  "Fortune Telling:"
+                  "Fortune Telling:",
+                  cardNumber + "-" + 1
                 )}
                 {this.getAnswers(
                   this.state.tarot[cardNumber]["Questions to Ask"],
-                  "Questions to Ask:"
+                  "Questions to Ask:",
+                  cardNumber + "-" + 2
                 )}
                 {this.getAnswers(
                   this.state.tarot[cardNumber].keywords,
-                  "Keywords:"
+                  "Keywords:",
+                  cardNumber + "-" + 3
                 )}
               </p>
             </td>
@@ -227,33 +227,47 @@ class Tarot extends React.Component {
               <p>
                 {this.getAnswers(
                   this.state.tarot[cardNumber].meanings.light,
-                  "Light Meaning:"
+                  "Light Meaning:",
+                  cardNumber + "-" + 4
                 )}
                 {this.getAnswers(
                   this.state.tarot[cardNumber].meanings.shadow,
-                  "Shadow Meaning:"
+                  "Shadow Meaning:",
+                  cardNumber + "-" + 5
                 )}
               </p>
             </td>
             <td>
               <p>
-                {this.getAnswers(this.state.tarot[cardNumber].number, "Number")}
-                {this.getAnswers(this.state.tarot[cardNumber].suit, "Suit")}
+                {this.getAnswers(
+                  this.state.tarot[cardNumber].number,
+                  "Number",
+                  cardNumber + "-" + 6
+                )}
+                {this.getAnswers(
+                  this.state.tarot[cardNumber].suit,
+                  "Suit",
+                  cardNumber + "-" + 7
+                )}
                 {this.getAnswers(
                   this.state.tarot[cardNumber]["Mythical/Spiritual"],
-                  "Mythical/Spiritual:"
+                  "Mythical/Spiritual:",
+                  cardNumber + "-" + 8
                 )}
                 {this.getAnswers(
                   this.state.tarot[cardNumber].Archetype,
-                  "Archetype:"
+                  "Archetype:",
+                  cardNumber + "-" + 9
                 )}
                 {this.getAnswers(
                   this.state.tarot[cardNumber].Elemental,
-                  "Elemental:"
+                  "Elemental:",
+                  cardNumber + "-" + 10
                 )}
                 {this.getAnswers(
                   this.state.tarot[cardNumber].Affirmation,
-                  "Affirmation"
+                  "Affirmation",
+                  cardNumber + "-" + 11
                 )}
               </p>
             </td>
@@ -263,24 +277,38 @@ class Tarot extends React.Component {
     );
   };
 
-  shuffleDeck = (numTimes) => {
-    let deck = this.state.tarot;
-    var count = 0;
-    while (count !== numTimes) {
-      deck = algo.shuffle(deck);
-      count++;
-    }
-    this.setState((prevState) => ({
-      tarot: deck,
-    }));
-  };
+  // shuffleDeck = (numTimes) => {
+  //   let deck = this.state.tarot;
+  //   var count = 0;
+  //   while (count !== numTimes) {
+  //     deck = algo.shuffle(deck);
+  //     count++;
+  //   }
+  //   this.setState((prevState) => ({
+  //     tarot: deck,
+  //   }));
+  //   return deck;
+  // };
 
   generateNewCards = () => {
     // Shuffle deck a random number of times or based on the name numerlogy of the person
+    var deck;
     if (this.state.singleNumber === "") {
-      this.shuffleDeck(Math.floor(Math.random() * 10));
+      let numTimes = Math.floor(Math.random() * 10);
+      deck = this.state.tarot;
+      var count = 0;
+      while (count !== numTimes) {
+        deck = algo.shuffle(deck);
+        count++;
+      }
     } else {
-      this.shuffleDeck(this.state.singleNumber);
+      let numTimes = this.state.singleNumber;
+      deck = this.state.tarot;
+      var count = 0;
+      while (count !== numTimes) {
+        deck = algo.shuffle(deck);
+        count++;
+      }
     }
     let cardArr = [this.state.number_piles];
     var pass_flag = true;
@@ -320,6 +348,7 @@ class Tarot extends React.Component {
     this.setState(() => ({
       generatedPiles: true,
       cardsSelected: [],
+      tarot: deck,
     }));
   };
 
@@ -348,7 +377,6 @@ class Tarot extends React.Component {
               displayZodiac: this.displayZodiac,
               generateNewCards: this.generateNewCards,
               getCardId: this.getCardId,
-              displayUi: this.displayUi,
               toggleDisplay: this.toggleDisplay,
               getCardInfoDisplay: this.getCardInfoDisplay,
               getCardSelectedDisplay: this.getCardSelectedDisplay,

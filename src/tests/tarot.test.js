@@ -166,18 +166,4 @@ describe("Tarot Component : ", () => {
     );
     expect(screen.getByTestId("zodiac").textContent).toBe("Pig");
   });
-
-  test("shuffleDeck", () => {
-    // const s = render(
-    //   <Tarot>
-    //     <ContextConsumer>
-    //       {({ actions, state }) => {
-    //         {
-    //           Tarot.shuffleDeck(10);
-    //         }
-    //       }}
-    //     </ContextConsumer>
-    //   </Tarot>
-    // );
-  });
 });
