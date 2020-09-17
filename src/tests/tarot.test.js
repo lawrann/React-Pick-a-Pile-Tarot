@@ -56,19 +56,21 @@ describe("Tarot Component : ", () => {
     const selectCards = [9, 10, 1, 2];
     const s = render(
       <Tarot>
-        <ContextConsumer>
-          {({ actions, state }) => {
-            state.number_piles = 4;
-            state.cardsSelected = selectCards;
-            state.piles = [
-              { pile: 1, cardId: selectCards[0], display: true },
-              { pile: 2, cardId: selectCards[1], display: true },
-              { pile: 3, cardId: selectCards[2], display: true },
-              { pile: 4, cardId: selectCards[3], display: true },
-            ];
-            return actions.getCardInfoDisplay();
-          }}
-        </ContextConsumer>
+        <table>
+          <ContextConsumer>
+            {({ actions, state }) => {
+              state.number_piles = 4;
+              state.cardsSelected = selectCards;
+              state.piles = [
+                { pile: 1, cardId: selectCards[0], display: true },
+                { pile: 2, cardId: selectCards[1], display: true },
+                { pile: 3, cardId: selectCards[2], display: true },
+                { pile: 4, cardId: selectCards[3], display: true },
+              ];
+              return actions.getCardInfoDisplay();
+            }}
+          </ContextConsumer>
+        </table>
       </Tarot>
     );
     const images = [
@@ -196,9 +198,9 @@ describe("Tarot Component : ", () => {
         <ContextConsumer>
           {({ actions, state }) => {
             return (
-              <span data-testid={"getCardData"}>
+              <table data-testid={"getCardData"}>
                 {actions.getCardData(cardNum)}
-              </span>
+              </table>
             );
           }}
         </ContextConsumer>

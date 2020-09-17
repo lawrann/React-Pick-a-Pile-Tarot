@@ -319,20 +319,24 @@ class Tarot extends React.Component {
 
     // add pulls to state piles
     var curPileLen = Object.keys(this.state.piles).length;
+    var newPile = [];
     for (var i = 0; i < this.state.number_piles; i++) {
-      if (i < curPileLen) {
-        this.state.piles[i]["cardId"] = cardArr[i + 1];
-        this.state.piles[i]["display"] = false;
-      } else {
-        this.state.piles.push({
-          pile: i,
-          cardId: cardArr[i + 1],
-          display: false,
-        });
-      }
+      newPile.push({ pile: i, cardId: cardArr[i + 1], display: false });
+      // if (i < curPileLen) {
+      //   newPile.push({ pile: i, cardId: cardArr[i + 1], display: false });
+      //   this.state.piles[i]["cardId"] = cardArr[i + 1];
+      //   this.state.piles[i]["display"] = false;
+      // } else {
+      //   this.state.piles.push({
+      //     pile: i,
+      //     cardId: cardArr[i + 1],
+      //     display: false,
+      //   });
+      // }
     }
 
     this.setState(() => ({
+      piles: newPile,
       generatedPiles: true,
       cardsSelected: [],
       tarot: deck,
