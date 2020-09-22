@@ -2,7 +2,7 @@ import React from "react";
 import { ContextConsumer } from "./context";
 import Card from "./Card";
 import CardInfoPanel from "./CardInfoPanel";
-import { Alert, Button } from "react-bootstrap";
+import { Alert, Button, Container } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const displayCards = (state) => {
@@ -17,6 +17,7 @@ const hasGeneratedCards = (actions, state) => {
   if (state.generatedPiles === false) {
     return (
       <React.Fragment>
+        <table className="card-panel-table"></table>
         <Button
           className="btn btn-primary btn-sm m-2"
           onClick={() => actions.generateNewCards()}
@@ -30,6 +31,10 @@ const hasGeneratedCards = (actions, state) => {
   } else {
     return (
       <React.Fragment>
+        <Container className="card-panel-table">
+          <CardInfoPanel />
+        </Container>
+        <div className="card-list">{displayCards(state)}</div>
         <Button
           className="btn btn-primary btn-sm m-2"
           onClick={() => actions.generateNewCards()}
@@ -37,8 +42,6 @@ const hasGeneratedCards = (actions, state) => {
         >
           Regenerate Cards
         </Button>
-        <div className="card-list">{displayCards(state)}</div>
-        <CardInfoPanel />
       </React.Fragment>
     );
   }

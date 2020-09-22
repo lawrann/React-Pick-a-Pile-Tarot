@@ -4,6 +4,8 @@ import { ContextProvider, ContextConsumer } from "../tarotComponents/context";
 import { render, screen, fireEvent } from "@testing-library/react";
 import TarotData from "../tarotComponents/tarot-images.json";
 import Tarot from "../tarotComponents/Tarot";
+import * as algo from "../tarotComponents/algorithms";
+import CardGenerator from "../tarotComponents/CardsGenerator";
 
 describe("Tarot Component : ", () => {
   test("getCardSelectedDisplay", () => {
@@ -176,21 +178,6 @@ describe("Tarot Component : ", () => {
     );
   });
 
-  //   test("getCardId", () => {
-  //     const s = render(
-  //       <Tarot>
-  //         <ContextConsumer>
-  //           {({ actions }) => {
-  //             return (
-  //               <span data-testid={"getCardId"}>{actions.getCardId(0)}</span>
-  //             );
-  //           }}
-  //         </ContextConsumer>
-  //       </Tarot>
-  //     );
-  //     console.log(screen.getByTestId("getCardId").textContent);
-  //   });
-
   test("getCardData", () => {
     var cardNum = 0;
     const s = render(
@@ -211,16 +198,20 @@ describe("Tarot Component : ", () => {
     );
   });
 
-  //   test("generateNewCards", () => {
-  //     const s = render(
-  //       <Tarot>
-  //         <ContextConsumer>
-  //           {({ actions, state }) => {
-  //             state.zodiac = zodiac;
-  //             return actions.displayZodiac();
-  //           }}
-  //         </ContextConsumer>
-  //       </Tarot>
-  //     );
-  //   });
+  test("generateNewCards", () => {
+    const spy = jest.spyOn(algo, "shuffle");
+    const s = render(
+      <Tarot>
+        <ContextConsumer>
+          {({ state }) => {
+            state.singleNumber = 6;
+          }}
+        </ContextConsumer>
+        <CardGenerator />
+      </Tarot>
+    );
+    const button = screen.getByTestId("button-generate-cards");
+    fireEvent.click(button);
+    expect(spy).toHaveBeenCalledTimes(6);
+  });
 });

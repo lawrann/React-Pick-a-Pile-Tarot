@@ -7,11 +7,10 @@ const CardInfoPanel = () => {
       {({ actions, state }) => {
         return (
           <React.Fragment>
-            <h1>Cards selected:</h1>
             {actions.getCardSelectedDisplay()}
-            <table className="card-info-table">
+            {/* <table className="card-info-table">
               {actions.getCardInfoDisplay()}
-            </table>
+            </table> */}
           </React.Fragment>
         );
       }}

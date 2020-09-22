@@ -60,11 +60,38 @@ class Tarot extends React.Component {
           width="150px"
           height="240px"
           key={"cardid-" + count}
+          onClick={() => this.displayModal(cardid)}
         />
+      );
+      uis.push(
+        <div key={"myModal" + cardid} id={"myModal" + cardid} className="modal">
+          <div className="modal-content">
+            <div className="modal-body">
+              <span id={"close" + cardid} className="close">
+                &times;
+              </span>
+              {this.getSelectedCardInfoDisplay(cardid)}
+            </div>
+          </div>
+        </div>
       );
       count++;
     }
     return uis;
+  };
+
+  displayModal = (cardid) => {
+    var modal = document.getElementById("myModal" + cardid);
+    var span = document.getElementById("close" + cardid);
+    modal.style.display = "block";
+    span.onclick = function () {
+      modal.style.display = "none";
+    };
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    };
   };
 
   getCardInfoDisplay = () => {
@@ -93,6 +120,14 @@ class Tarot extends React.Component {
     for (const cardid of this.state.cardsSelected) {
       uis.push(this.getCardData(cardid));
     }
+    console.log("cardsSelected " + this.state.cardsSelected);
+
+    return uis;
+  };
+
+  getSelectedCardInfoDisplay = (cardid) => {
+    let uis = [];
+    uis.push(this.getCardData(cardid));
     console.log("cardsSelected " + this.state.cardsSelected);
 
     return uis;
@@ -176,103 +211,93 @@ class Tarot extends React.Component {
     return uis;
   };
 
-  // getCardId = (pileNum) => {
-  //   const clonePile = [...this.state.piles];
-  //   clonePile[pileNum]["display"] = !clonePile[pileNum]["display"];
-  //   this.setState((prevState) => ({
-  //     generatedPiles: true,
-  //     piles: [...prevState.piles],
-  //   }));
-  //   return this.state.piles[pileNum]["cardId"];
-  // };
-
   getCardData = (cardNumber) => {
     return (
       <React.Fragment key={cardNumber}>
-        <tbody data-testid={"card-data-tbody-id-" + cardNumber}>
-          <tr>
-            <td>
-              <h3>
-                {this.state.tarot[cardNumber].name} (
-                {this.state.tarot[cardNumber].arcana})
-              </h3>
-              <img
-                data-testid={"card-data-img-id-" + cardNumber}
-                // onClick={() => this.getCardId(cardNumber)}
-                src={require("./cards/" + this.state.tarot[cardNumber].img)}
-                width="300px"
-                height="480px"
-              />
-            </td>
-            <td>
-              <p>
-                {this.getAnswers(
-                  this.state.tarot[cardNumber].fortune_telling,
-                  "Fortune Telling:",
-                  cardNumber + "-" + 1
-                )}
-                {this.getAnswers(
-                  this.state.tarot[cardNumber]["Questions to Ask"],
-                  "Questions to Ask:",
-                  cardNumber + "-" + 2
-                )}
-                {this.getAnswers(
-                  this.state.tarot[cardNumber].keywords,
-                  "Keywords:",
-                  cardNumber + "-" + 3
-                )}
-              </p>
-            </td>
-            <td>
-              <p>
-                {this.getAnswers(
-                  this.state.tarot[cardNumber].meanings.light,
-                  "Light Meaning:",
-                  cardNumber + "-" + 4
-                )}
-                {this.getAnswers(
-                  this.state.tarot[cardNumber].meanings.shadow,
-                  "Shadow Meaning:",
-                  cardNumber + "-" + 5
-                )}
-              </p>
-            </td>
-            <td>
-              <p>
-                {this.getAnswers(
-                  this.state.tarot[cardNumber].number,
-                  "Number",
-                  cardNumber + "-" + 6
-                )}
-                {this.getAnswers(
-                  this.state.tarot[cardNumber].suit,
-                  "Suit",
-                  cardNumber + "-" + 7
-                )}
-                {this.getAnswers(
-                  this.state.tarot[cardNumber]["Mythical/Spiritual"],
-                  "Mythical/Spiritual:",
-                  cardNumber + "-" + 8
-                )}
-                {this.getAnswers(
-                  this.state.tarot[cardNumber].Archetype,
-                  "Archetype:",
-                  cardNumber + "-" + 9
-                )}
-                {this.getAnswers(
-                  this.state.tarot[cardNumber].Elemental,
-                  "Elemental:",
-                  cardNumber + "-" + 10
-                )}
-                {this.getAnswers(
-                  this.state.tarot[cardNumber].Affirmation,
-                  "Affirmation",
-                  cardNumber + "-" + 11
-                )}
-              </p>
-            </td>
-          </tr>
-        </tbody>
+        <table>
+          <tbody data-testid={"card-data-tbody-id-" + cardNumber}>
+            <tr>
+              <td className="modal-col-1">
+                <h3>
+                  {this.state.tarot[cardNumber].name} (
+                  {this.state.tarot[cardNumber].arcana})
+                </h3>
+                <img
+                  data-testid={"card-data-img-id-" + cardNumber}
+                  src={require("./cards/" + this.state.tarot[cardNumber].img)}
+                  className="modal-img"
+                />
+              </td>
+              <td className="modal-col-2">
+                <p>
+                  {this.getAnswers(
+                    this.state.tarot[cardNumber].fortune_telling,
+                    "Fortune Telling:",
+                    cardNumber + "-" + 1
+                  )}
+                  {this.getAnswers(
+                    this.state.tarot[cardNumber]["Questions to Ask"],
+                    "Questions to Ask:",
+                    cardNumber + "-" + 2
+                  )}
+                  {this.getAnswers(
+                    this.state.tarot[cardNumber].keywords,
+                    "Keywords:",
+                    cardNumber + "-" + 3
+                  )}
+                </p>
+              </td>
+              <td className="modal-col-3">
+                <p>
+                  {this.getAnswers(
+                    this.state.tarot[cardNumber].meanings.light,
+                    "Light Meaning:",
+                    cardNumber + "-" + 4
+                  )}
+                  {this.getAnswers(
+                    this.state.tarot[cardNumber].meanings.shadow,
+                    "Shadow Meaning:",
+                    cardNumber + "-" + 5
+                  )}
+                </p>
+              </td>
+              <td className="modal-col-4">
+                <p>
+                  {this.getAnswers(
+                    this.state.tarot[cardNumber].number,
+                    "Number",
+                    cardNumber + "-" + 6
+                  )}
+                  {this.getAnswers(
+                    this.state.tarot[cardNumber].suit,
+                    "Suit",
+                    cardNumber + "-" + 7
+                  )}
+                  {this.getAnswers(
+                    this.state.tarot[cardNumber]["Mythical/Spiritual"],
+                    "Mythical/Spiritual:",
+                    cardNumber + "-" + 8
+                  )}
+                  {this.getAnswers(
+                    this.state.tarot[cardNumber].Archetype,
+                    "Archetype:",
+                    cardNumber + "-" + 9
+                  )}
+                  {this.getAnswers(
+                    this.state.tarot[cardNumber].Elemental,
+                    "Elemental:",
+                    cardNumber + "-" + 10
+                  )}
+                  {this.getAnswers(
+                    this.state.tarot[cardNumber].Affirmation,
+                    "Affirmation",
+                    cardNumber + "-" + 11
+                  )}
+                </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </React.Fragment>
     );
   };
@@ -280,6 +305,7 @@ class Tarot extends React.Component {
   generateNewCards = () => {
     // Shuffle deck a random number of times or based on the name numerlogy of the person
     var deck;
+    console.log("this.state.singlenumber: " + this.state.singleNumber);
     if (this.state.singleNumber === "") {
       let numTimes = Math.floor(Math.random() * 10);
       deck = this.state.tarot;
@@ -315,24 +341,13 @@ class Tarot extends React.Component {
         }
       }
     } while (!pass_flag);
-    console.log("final cardArr " + cardArr);
+    // console.log("final cardArr " + cardArr);
 
     // add pulls to state piles
     var curPileLen = Object.keys(this.state.piles).length;
     var newPile = [];
     for (var i = 0; i < this.state.number_piles; i++) {
       newPile.push({ pile: i, cardId: cardArr[i + 1], display: false });
-      // if (i < curPileLen) {
-      //   newPile.push({ pile: i, cardId: cardArr[i + 1], display: false });
-      //   this.state.piles[i]["cardId"] = cardArr[i + 1];
-      //   this.state.piles[i]["display"] = false;
-      // } else {
-      //   this.state.piles.push({
-      //     pile: i,
-      //     cardId: cardArr[i + 1],
-      //     display: false,
-      //   });
-      // }
     }
 
     this.setState(() => ({
@@ -367,11 +382,11 @@ class Tarot extends React.Component {
               displayHoroscope: this.displayHoroscope,
               displayZodiac: this.displayZodiac,
               generateNewCards: this.generateNewCards,
-              getCardId: this.getCardId,
               toggleDisplay: this.toggleDisplay,
               getAnswers: this.getAnswers,
               getCardInfoDisplay: this.getCardInfoDisplay,
               getCardSelectedDisplay: this.getCardSelectedDisplay,
+              getSelectedCardInfoDisplay: this.getSelectedCardInfoDisplay,
             },
           }}
         >
