@@ -64,10 +64,19 @@ class Tarot extends React.Component {
         />
       );
       uis.push(
-        <div key={"myModal" + cardid} id={"myModal" + cardid} className="modal">
+        <div
+          data-testid={"modal"}
+          key={"myModal" + cardid}
+          id={"myModal" + cardid}
+          className="modal"
+        >
           <div className="modal-content">
-            <div className="modal-body">
-              <span id={"close" + cardid} className="close">
+            <div data-testid={"modal-body-" + cardid} className="modal-body">
+              <span
+                id={"close" + cardid}
+                className="close"
+                data-testid={"close-test"}
+              >
                 &times;
               </span>
               {this.getSelectedCardInfoDisplay(cardid)}

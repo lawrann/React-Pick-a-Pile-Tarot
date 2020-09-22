@@ -6,6 +6,7 @@ import TarotData from "../tarotComponents/tarot-images.json";
 import Tarot from "../tarotComponents/Tarot";
 import * as algo from "../tarotComponents/algorithms";
 import CardGenerator from "../tarotComponents/CardsGenerator";
+import CardInfoPanel from "../tarotComponents/CardInfoPanel";
 
 describe("Tarot Component : ", () => {
   test("getCardSelectedDisplay", () => {
@@ -213,5 +214,24 @@ describe("Tarot Component : ", () => {
     const button = screen.getByTestId("button-generate-cards");
     fireEvent.click(button);
     expect(spy).toHaveBeenCalledTimes(6);
+  });
+
+  test("displayModal", () => {
+    const dm = jest.fn();
+    const s = render(
+      <Tarot>
+        <CardGenerator />
+      </Tarot>
+    );
+    const button = screen.getByTestId("button-generate-cards");
+    fireEvent.click(button);
+    const card = screen.getByTestId("card-test-id-0");
+    fireEvent.click(card);
+    const cardselected = screen.getByTestId("card-selected-id-0");
+    fireEvent.click(cardselected);
+    expect(screen.getByTestId("modal").toBeInTheDocument);
+    const closebtn = screen.getByTestId("close-test");
+    fireEvent.click(closebtn);
+    expect(screen.getByTestId("modal")).not.toBeInTheDocument;
   });
 });

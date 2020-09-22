@@ -27,7 +27,7 @@ describe("CardInfoPanel Component : ", () => {
   };
 
   const getCardSelectedDisplay = jest.fn();
-  const getCardInfoDisplay = jest.fn();
+  const getSelectedCardInfoDisplay = jest.fn();
 
   // create cardinfopanel component and call getCardSelectedDisplay, getCardInfoDisplay
   test("should create card info panel", () => {
@@ -37,16 +37,13 @@ describe("CardInfoPanel Component : ", () => {
           state,
           actions: {
             getCardSelectedDisplay,
-            getCardInfoDisplay,
           },
         }}
       >
         <CardInfoPanel />
       </ContextProvider>
     );
-    expect(screen.getByText("Cards selected:")).toBeInTheDocument();
     expect(getCardSelectedDisplay).toHaveBeenCalled();
-    expect(getCardInfoDisplay).toHaveBeenCalled();
   });
 
   test("getCardSelectedDisplay", () => {
